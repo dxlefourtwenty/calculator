@@ -1,6 +1,9 @@
 let topButtons = [];
 let middleButtons = [];
 let bottomButtons = [];
+let digits = "1234567890"
+let operators = "x-+÷%=√"
+let currentInput = "";
 
 function loadTopButtons(rows, cols) {
     const topContainer = document.getElementById("top-buttons");
@@ -35,6 +38,15 @@ function loadBottomButtons(rows, cols) {
         button.textContent = `Button ${i + 25}`;
 
         bottomContainer.appendChild(button);
+    }
+}
+
+function handleButtonClick(event) {
+    const btnText = event.target.textContent;
+    if (digits.includes(btnText)) {
+        appendDigit(btnText);
+    } else {
+        console.log("Not implemented yet!");
     }
 }
 
@@ -82,7 +94,14 @@ bottomButtons[1].textContent = "x^y";
 bottomButtons[2].textContent = "R2";
 bottomButtons[3].textContent = "R0";
 
+document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", handleButtonClick);
+});
 
+function appendDigit(digit) {
+    currentInput += digit;
+    document.getElementById("output").textContent = currentInput;
+}
 
 function add() {
     
