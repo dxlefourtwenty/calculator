@@ -8,6 +8,7 @@ let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
 const decimalLimit = 10;
+const digitLimit = 14;
 
 function loadTopButtons(rows, cols) {
     const topContainer = document.getElementById("top-buttons");
@@ -67,16 +68,28 @@ function handleButtonClick(event) {
 function appendValue(input) {
     if (waitingForSecondValue) {
         secondValue = secondValue?.toString() || "";
+
+        // Don't add more digits if digitLimit reached (excluding the decimal point)
+        if (input !== "." && secondValue.replace(".", "").length >= digitLimit) {
+            return; // ignore input if digit limit reached
+        }
+
         if (input === ".") {
             if (!secondValue.includes(".")) {
                 secondValue += secondValue === "" ? "0." : ".";
             }
         } else {
-            secondValue += input;
+        secondValue += input;
         }
+
         updateDisplay(secondValue);
     } else {
         firstValue = firstValue?.toString() || "";
+
+        if (input !== "." && firstValue.replace(".", "").length >= digitLimit) {
+            return; // ignore input if digit limit reached
+        }
+
         if (input === ".") {
             if (!firstValue.includes(".")) {
                 firstValue += firstValue === "" ? "0." : ".";
@@ -84,7 +97,8 @@ function appendValue(input) {
         } else {
             firstValue += input;
         }
-        updateDisplay(firstValue);
+
+    updateDisplay(firstValue);
     }
 }
 
