@@ -1,12 +1,13 @@
 let topButtons = [];
 let middleButtons = [];
 let bottomButtons = [];
-let digits = "1234567890"
-let operators = "x-+÷%=√^"
+let digits = "1234567890";
+let operators = "x-+÷%=√^";
 let operator = null;
-let firstValue = 0;
-let secondValue = 0;
-let currentInput = "";
+let firstValue = "";
+let secondValue = "";
+let waitingForSecondValue = false;
+const decimalLimit = 8;
 
 function loadTopButtons(rows, cols) {
     const topContainer = document.getElementById("top-buttons");
@@ -47,42 +48,63 @@ function loadBottomButtons(rows, cols) {
 function handleButtonClick(event) {
     const btnText = event.target.textContent;
 
-    if (digits.includes(btnText)) {
-        inputNumber(btnText);
-    } else if (operators.includes(btnText)) {
-        if (btnText === '=') {
-            pressEqual();
-        }
-        selectOperator(btnText);
-    } else if (btnText === 'CE') {
+    if (digits.includes(btnText) || btnText === ".") {
+        appendValue(btnText);
+    } else if (btnText === "=") {
+        pressEqual();
+    } else if (btnText === "CE") {
         clearOutput();
         console.log("Cleared!");
-    } else if (btnText.includes('^')) {
-            selectOperator('^');
-    } else 
+    } else if (btnText.includes("^")) {
+        selectOperator("^");
+    } else if (operators.includes(btnText)) {
+        selectOperator(btnText);
+    } else {
         console.log("Not implemented yet!");
-
+    }
 }
 
-function inputNumber(num) {
-    num = parseInt(num);
-    appendDigit(num);
-    if (operator === null) {
-        firstValue = firstValue === null ? num : firstValue * 10 + num;
-        console.log(firstValue);
+function appendValue(input) {
+    if (waitingForSecondValue) {
+        secondValue = secondValue?.toString() || "";
+        if (input === ".") {
+            if (!secondValue.includes(".")) {
+                secondValue += secondValue === "" ? "0." : ".";
+            }
+        } else {
+            secondValue += input;
+        }
+        updateDisplay(secondValue);
     } else {
-        secondValue = secondValue === null ? num : secondValue * 10 + num;
-        console.log(secondValue);
-        changeOutput(secondValue);
+        firstValue = firstValue?.toString() || "";
+        if (input === ".") {
+            if (!firstValue.includes(".")) {
+                firstValue += firstValue === "" ? "0." : ".";
+            }
+        } else {
+            firstValue += input;
+        }
+        updateDisplay(firstValue);
     }
 }
 
 function selectOperator(op) {
+    if (firstValue === "") {
+        console.log("Enter a number first!");
+        return;
+    }
+    if (waitingForSecondValue && secondValue !== "") {
+        // If user pressed operator after entering secondValue, calculate first
+        pressEqual();
+    }
     operator = op;
+    waitingForSecondValue = true;
     console.log(`Operator selected: ${operator}`);
 }
 
 function performOperation(a, op, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
     switch (op) {
         case '+': return a + b;
         case '-': return a - b;
@@ -94,26 +116,37 @@ function performOperation(a, op, b) {
 }
 
 function pressEqual() {
-    if (firstValue !== null && operator != null && secondValue !== null) {
-        const result = performOperation(firstValue, operator, secondValue);
+    if (firstValue !== "" && operator != null && secondValue !== "") {
+        let result = performOperation(firstValue, operator, secondValue);
+        
+        if (!isNaN(result)) {
+            result = Number(result.toFixed(decimalLimit));
+        }
+
         console.log(`Result: ${result}`);
-        firstValue = result;
+        firstValue = result.toString();
         operator = null;
-        secondValue = null;
-        changeOutput(result);
+        secondValue = "";
+        waitingForSecondValue = false;
+        updateDisplay(firstValue);
     } else {
         console.log("Incomplete input!");
     }
 }
 
 function clearOutput() {
-    firstValue = 0;
-    secondValue = 0;
-    currentInput = '';
+    firstValue = "";
+    secondValue = "";
     operator = null;
-    document.getElementById("output").textContent = "0";
+    waitingForSecondValue = false;
+    updateDisplay("0");
 }
 
+function updateDisplay(value) {
+    document.getElementById("output").textContent = value;
+}
+
+// Load buttons and set button text as before
 loadTopButtons(1, 4);
 loadMiddleButtons(5, 4);
 loadBottomButtons(1, 4);
@@ -161,20 +194,3 @@ bottomButtons[3].textContent = "R0";
 document.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", handleButtonClick);
 });
-
-function appendDigit(digit) {
-    currentInput += digit;
-    document.getElementById("output").textContent = currentInput;
-}
-
-function changeOutput(digit) {
-    document.getElementById("output").textContent = digit;
-}
-
-function power() {
-    
-}
-
-function factorial() {
-    
-}
