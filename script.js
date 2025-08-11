@@ -60,6 +60,10 @@ function handleButtonClick(event) {
         selectOperator("^");
     } else if (operators.includes(btnText)) {
         selectOperator(btnText);
+    } else if (btnText.includes("√")) {
+        console.log("Square Root Selected");
+        waitingForSecondValue = false;
+        handleSquareRoot();
     } else {
         console.log("Not implemented yet!");
     }
@@ -98,7 +102,7 @@ function appendValue(input) {
             firstValue += input;
         }
 
-    updateDisplay(firstValue);
+        updateDisplay(firstValue);
     }
 }
 
@@ -126,6 +130,22 @@ function performOperation(a, op, b) {
         case '÷': return b !== 0 ? a / b : NaN;
         case '^': return Math.pow(a, b);
         default: return b;
+    }
+}
+
+function handleSquareRoot() {
+    if (waitingForSecondValue) {
+        if (secondValue !== "" && !isNaN(secondValue)) {
+            secondValue = Math.sqrt(parseFloat(secondValue)).toString();
+            console.log(secondValue);
+            updateDisplay(secondValue);
+        }
+    } else {
+        if (firstValue !== "" && !isNaN(firstValue)) {
+            firstValue = Math.sqrt(parseFloat(firstValue)).toString();
+            console.log(firstValue);
+            updateDisplay(firstValue);
+        }
     }
 }
 
