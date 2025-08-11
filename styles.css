@@ -43,6 +43,11 @@ body {
     gap: 8px;
 }
 
+.top-button, .middle-button, .bottom-button {
+    font-size: 28px;
+    font-weight: bold;
+}
+
 .top-button {
     background-color: rgb(167, 167, 167);
     border: 2px solid rgb(116, 115, 115);
