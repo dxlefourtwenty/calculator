@@ -26,7 +26,7 @@ function loadMiddleButtons(rows, cols) {
     }
 }
 
-function loadBottonButtons(rows, cols) {
+function loadBottomButtons(rows, cols) {
     const bottomContainer = document.getElementById("bottom-buttons");
     for (let i = 0; i < (rows * cols); i++) {
         const button = document.createElement("button");
@@ -40,6 +40,7 @@ function loadBottonButtons(rows, cols) {
 
 loadTopButtons(1, 4);
 loadMiddleButtons(5, 4);
+loadBottomButtons(1, 4);
 topButtons[0].textContent = "M";
 
 function add() {
