@@ -3,6 +3,9 @@ let middleButtons = [];
 let bottomButtons = [];
 let digits = "1234567890"
 let operators = "x-+÷%=√"
+let operator = null;
+let firstValue = 0;
+let secondValue = 0;
 let currentInput = "";
 
 function loadTopButtons(rows, cols) {
@@ -43,11 +46,69 @@ function loadBottomButtons(rows, cols) {
 
 function handleButtonClick(event) {
     const btnText = event.target.textContent;
+
     if (digits.includes(btnText)) {
-        appendDigit(btnText);
+        inputNumber(btnText);
+    } else if (operators.includes(btnText)) {
+        if (btnText === '=') {
+            pressEqual();
+        }
+        selectOperator(btnText);
+    } else if (btnText === 'CE') {
+        clearOutput();
+        console.log("Cleared!");
     } else {
         console.log("Not implemented yet!");
     }
+}
+
+function inputNumber(num) {
+    num = parseInt(num);
+    appendDigit(num);
+    if (operator === null) {
+        firstValue = firstValue === null ? num : firstValue * 10 + num;
+        console.log(firstValue);
+    } else {
+        secondValue = secondValue === null ? num : secondValue * 10 + num;
+        console.log(secondValue);
+        changeOutput(secondValue);
+    }
+}
+
+function selectOperator(op) {
+    operator = op;
+    console.log(`Operator selected: ${operator}`);
+}
+
+function performOperation(a, op, b) {
+    switch (op) {
+        case '+': return a + b;
+        case '-': return a - b;
+        case 'x': return a * b;
+        case '÷': return b !== 0 ? a / b : NaN;
+        default: return b;
+    }
+}
+
+function pressEqual() {
+    if (firstValue !== null && operator != null && secondValue !== null) {
+        const result = performOperation(firstValue, operator, secondValue);
+        console.log(`Result: ${result}`);
+        firstValue = result;
+        operator = null;
+        secondValue = null;
+        changeOutput(result);
+    } else {
+        console.log("Incomplete input!");
+    }
+}
+
+function clearOutput() {
+    firstValue = 0;
+    secondValue = 0;
+    currentInput = '';
+    operator = null;
+    document.getElementById("output").textContent = "0";
 }
 
 loadTopButtons(1, 4);
@@ -103,20 +164,8 @@ function appendDigit(digit) {
     document.getElementById("output").textContent = currentInput;
 }
 
-function add() {
-    
-}
-
-function subtract() {
-    
-}
-
-function multiply() {
-    
-}
-
-function divide() {
-    
+function changeOutput(digit) {
+    document.getElementById("output").textContent = digit;
 }
 
 function power() {
