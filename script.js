@@ -2,7 +2,7 @@ let topButtons = [];
 let middleButtons = [];
 let bottomButtons = [];
 let digits = "1234567890"
-let operators = "x-+÷%=√"
+let operators = "x-+÷%=√^"
 let operator = null;
 let firstValue = 0;
 let secondValue = 0;
@@ -57,9 +57,11 @@ function handleButtonClick(event) {
     } else if (btnText === 'CE') {
         clearOutput();
         console.log("Cleared!");
-    } else {
+    } else if (btnText.includes('^')) {
+            selectOperator('^');
+    } else 
         console.log("Not implemented yet!");
-    }
+
 }
 
 function inputNumber(num) {
@@ -86,6 +88,7 @@ function performOperation(a, op, b) {
         case '-': return a - b;
         case 'x': return a * b;
         case '÷': return b !== 0 ? a / b : NaN;
+        case '^': return Math.pow(a, b);
         default: return b;
     }
 }
