@@ -160,7 +160,7 @@ function updateDisplay(value) {
     document.getElementById("output").textContent = value;
 }
 
-// Load buttons and set button text as before
+// Load buttons and set button text values
 loadTopButtons(1, 4);
 loadMiddleButtons(5, 4);
 loadBottomButtons(1, 4);
