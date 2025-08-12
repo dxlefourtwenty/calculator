@@ -4,6 +4,7 @@ let bottomButtons = [];
 let digits = "1234567890";
 let operators = "x-+÷%=√^";
 let operator = null;
+let pi = "π";
 let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
@@ -65,6 +66,8 @@ function handleButtonClick(event) {
         console.log("Square Root Selected");
         waitingForSecondValue = false;
         handleSquareRoot();
+    } else if (pi.includes(btnText)) {
+        appendValue("3.14159265358979");
     } else {
         console.log("Not implemented yet!");
     }
