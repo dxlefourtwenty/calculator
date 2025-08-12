@@ -7,7 +7,6 @@ let operator = null;
 let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
-const decimalLimit = 10;
 const digitLimit = 14;
 
 function loadTopButtons(rows, cols) {
@@ -89,6 +88,7 @@ function appendValue(input) {
                 secondValue += secondValue === "" ? "0." : ".";
             }
         } else {
+            
         secondValue += input;
         }
 
