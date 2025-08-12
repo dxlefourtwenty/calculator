@@ -51,6 +51,8 @@ function handleButtonClick(event) {
 
     if (digits.includes(btnText) || btnText === ".") {
         appendValue(btnText);
+    } else if (btnText === "+/-") {
+        appendValue("-")
     } else if (btnText === "=") {
         pressEqual();
     } else if (btnText === "CE") {
@@ -72,6 +74,10 @@ function handleButtonClick(event) {
 function appendValue(input) {
     if (waitingForSecondValue) {
         secondValue = secondValue?.toString() || "";
+        if (input === "-" && secondValue === "") {
+            secondValue = "-";
+            updateDisplay(secondValue);
+        }
 
         // Don't add more digits if digitLimit reached (excluding the decimal point)
         if (input !== "." && secondValue.replace(".", "").length >= digitLimit) {
@@ -88,6 +94,10 @@ function appendValue(input) {
 
         updateDisplay(secondValue);
     } else {
+        if (input === "-" && firstValue === "") {
+            firstValue = "-";
+            updateDisplay(firstValue);
+        }
         firstValue = firstValue?.toString() || "";
 
         if (input !== "." && firstValue.replace(".", "").length >= digitLimit) {
@@ -136,13 +146,13 @@ function performOperation(a, op, b) {
 function handleSquareRoot() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
-            secondValue = Math.sqrt(parseFloat(secondValue)).toString();
+            secondValue = Math.sqrt(parseFloat(secondValue)).toFixed(digitLimit).toString();
             console.log(secondValue);
             updateDisplay(secondValue);
         }
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
-            firstValue = Math.sqrt(parseFloat(firstValue)).toString();
+            firstValue = Math.sqrt(parseFloat(firstValue)).toFixed(digitLimit).toString();
             console.log(firstValue);
             updateDisplay(firstValue);
         }
@@ -154,7 +164,7 @@ function pressEqual() {
         let result = performOperation(firstValue, operator, secondValue);
 
         if (!isNaN(result)) {
-            result = Number(result.toFixed(decimalLimit));
+            result = Number(result.toFixed(digitLimit));
         }
 
         console.log(`Result: ${result}`);
