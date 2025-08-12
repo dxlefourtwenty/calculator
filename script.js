@@ -73,40 +73,57 @@ function handleButtonClick(event) {
 function appendValue(input) {
     if (waitingForSecondValue) {
         secondValue = secondValue?.toString() || "";
-        if (input === "-" && secondValue === "") {
-            secondValue = "-";
+
+        if (input === "-") {
+            // Toggle negative
+            if (secondValue.startsWith("-")) {
+                secondValue = secondValue.slice(1);
+            } else {
+                secondValue = "-" + secondValue;
+            }
             updateDisplay(secondValue);
+            return;
         }
 
-        // Don't add more digits if digitLimit reached (excluding the decimal point)
-        if (input !== "." && secondValue.replace(".", "").length >= digitLimit) {
-            return; // ignore input if digit limit reached
+        // Prevent extra digits (excluding decimal point & negative sign)
+        if (input !== "." && secondValue.replace(".", "").replace("-", "").length >= digitLimit) {
+            return;
         }
 
+        // Handle decimal point
         if (input === ".") {
             if (!secondValue.includes(".")) {
-                secondValue += secondValue === "" ? "0." : ".";
+                secondValue += secondValue === "" || secondValue === "-" ? "0." : ".";
             }
         } else {
-            
-        secondValue += input;
+            secondValue += input;
         }
 
         updateDisplay(secondValue);
+
     } else {
-        if (input === "-" && firstValue === "") {
-            firstValue = "-";
-            updateDisplay(firstValue);
-        }
         firstValue = firstValue?.toString() || "";
 
-        if (input !== "." && firstValue.replace(".", "").length >= digitLimit) {
-            return; // ignore input if digit limit reached
+        if (input === "-") {
+            // Toggle negative
+            if (firstValue.startsWith("-")) {
+                firstValue = firstValue.slice(1);
+            } else {
+                firstValue = "-" + firstValue;
+            }
+            updateDisplay(firstValue);
+            return;
         }
 
+        // Prevent extra digits (excluding decimal point & negative sign)
+        if (input !== "." && firstValue.replace(".", "").replace("-", "").length >= digitLimit) {
+            return;
+        }
+
+        // Handle decimal point
         if (input === ".") {
             if (!firstValue.includes(".")) {
-                firstValue += firstValue === "" ? "0." : ".";
+                firstValue += firstValue === "" || firstValue === "-" ? "0." : ".";
             }
         } else {
             firstValue += input;
@@ -115,6 +132,8 @@ function appendValue(input) {
         updateDisplay(firstValue);
     }
 }
+
+
 
 function selectOperator(op) {
     if (firstValue === "") {
