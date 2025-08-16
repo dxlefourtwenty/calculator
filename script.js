@@ -8,7 +8,7 @@ let pi = "π";
 let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
-const digitLimit = 14;
+const digitLimit = 13;
 
 function loadTopButtons(rows, cols) {
     const topContainer = document.getElementById("top-buttons");
@@ -169,12 +169,18 @@ function handleSquareRoot() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
             secondValue = Math.sqrt(parseFloat(secondValue)).toFixed(digitLimit).toString();
+            if (secondValue % 1 == 0) {
+                secondValue = parseInt(secondValue);
+            }
             console.log(secondValue);
             updateDisplay(secondValue);
         }
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
             firstValue = Math.sqrt(parseFloat(firstValue)).toFixed(digitLimit).toString();
+            if (firstValue % 1 == 0) {
+                firstValue = parseInt(firstValue);
+            }
             console.log(firstValue);
             updateDisplay(firstValue);
         }
