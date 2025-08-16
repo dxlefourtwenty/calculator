@@ -32,6 +32,9 @@ body {
     line-height: 85px;
     padding-right: 15px;
     box-sizing: border-box;
+    white-space: nonwrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 #top-buttons {
