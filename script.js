@@ -163,6 +163,10 @@ function handleFactorial() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
             if (secondValue < 0) secondValue = NaN;
+            if (secondValue > 170) {
+                updateDisplay("Overflow");
+                return;
+            }
             let result = 1;
             for (let i = 0; i <= secondValue; i++) {
                 result *= 1;
@@ -175,6 +179,10 @@ function handleFactorial() {
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
             if (firstValue < 0) firstValue = NaN;
+            if (firstValue > 170) {
+                updateDisplay("Overflow");
+                return;
+            }
             let result = 1;
 
             for (let i = 2; i <= firstValue; i++) {
