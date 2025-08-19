@@ -8,7 +8,7 @@ let pi = "π";
 let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
-const digitLimit = 13;
+const digitLimit = 15;
 
 function loadTopButtons(rows, cols) {
     const topContainer = document.getElementById("top-buttons");
@@ -248,41 +248,31 @@ middleButtons[0].textContent = "CE";
 middleButtons[1].textContent = "√X";
 middleButtons[2].textContent = "%";
 middleButtons[3].textContent = "÷";
-middleButtons[3].style.backgroundColor = "gold";
-middleButtons[3].style.borderColor = "black";
-middleButtons[3].style.color = "black";
+middleButtons[3].classList.add("gold-button");
 
 middleButtons[4].textContent = "7";
 middleButtons[5].textContent = "8";
 middleButtons[6].textContent = "9";
 middleButtons[7].textContent = "x";
-middleButtons[7].style.backgroundColor = "gold";
-middleButtons[7].style.borderColor = "black";
-middleButtons[7].style.color = "black";
+middleButtons[7].classList.add("gold-button");
 
 middleButtons[8].textContent = "4";
 middleButtons[9].textContent = "5";
 middleButtons[10].textContent = "6";
 middleButtons[11].textContent = "-";
-middleButtons[11].style.backgroundColor = "gold";
-middleButtons[11].style.borderColor = "black";
-middleButtons[11].style.color = "black";
+middleButtons[11].classList.add("gold-button");
 
 middleButtons[12].textContent = "1";
 middleButtons[13].textContent = "2";
 middleButtons[14].textContent = "3";
 middleButtons[15].textContent = "+";
-middleButtons[15].style.backgroundColor = "gold";
-middleButtons[15].style.borderColor = "black";
-middleButtons[15].style.color = "black";
+middleButtons[15].classList.add("gold-button");
 
 middleButtons[16].textContent = "0";
 middleButtons[17].textContent = ".";
 middleButtons[18].textContent = "+/-";
 middleButtons[19].textContent = "=";
-middleButtons[19].style.backgroundColor = "gold";
-middleButtons[19].style.borderColor = "black";
-middleButtons[19].style.color = "black";
+middleButtons[19].classList.add("gold-button");
 
 bottomButtons[0].textContent = "π";
 bottomButtons[1].textContent = "x^y";

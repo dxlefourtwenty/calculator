@@ -1,4 +1,4 @@
-* {
+:root {
     font-family: 'Times New Roman', Times, serif;
 }
 
@@ -53,6 +53,15 @@ body {
     color: white;
 }
 
+.top-button:hover,
+.middle-button:hover,
+.bottom-button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border: 4px solid black;
+}
+
 .top-button {
     background-color: rgb(68, 38, 201);
     border: 2px solid white;
@@ -86,4 +95,17 @@ body {
     background-color: rgb(68, 38, 201);
     border: 2px solid white;
     box-sizing: border-box;
+}
+
+.gold-button {
+    background-color: gold;
+    color: black;
+    border: 2px solid black;
+}
+
+.gold-button:hover {
+    background-color: rgb(255, 217, 0);
+    color: rgb(206, 16, 16);
+    cursor: pointer;
+    border: 4px solid rgb(206, 16, 16);;
 }
