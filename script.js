@@ -9,6 +9,7 @@ let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
 const digitLimit = 15;
+let colorfulMode = false;
 
 function loadTopButtons(rows, cols) {
     const topContainer = document.getElementById("top-buttons");
@@ -69,6 +70,8 @@ function handleButtonClick(event) {
         handleSquareRoot();
     } else if (pi.includes(btnText)) {
         appendValue("3.14159265358979");
+    } else if (btnText.includes("C")) {
+        toggleColorfulMode();
     } else {
         console.log("Not implemented yet!");
     }
@@ -230,8 +233,35 @@ function clearOutput() {
     updateDisplay("0");
 }
 
+function toggleColorfulMode() {
+    if (colorfulMode) {
+        console.log("Colorful mode: OFF");
+        bottomButtons[3].style.removeProperty('background-color');
+        colorfulMode = false;
+    } else {
+        console.log("Colorful mode: ON");
+        bottomButtons[3].style.backgroundColor = "rgba(32, 197, 209, 1)";
+        colorfulMode = true;
+    }
+}
+
 function updateDisplay(value) {
-    document.getElementById("output").textContent = value;
+    const display = document.getElementById("output");
+    display.innerHTML = "";
+
+    if (colorfulMode) {
+        for (let ch of value) {
+            const span = document.createElement("span");
+            const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+            span.style.color = randomColor;
+            span.textContent = ch;
+
+            display.appendChild(span);
+        }
+    } else {
+        display.textContent = value;
+    }
 }
 
 // Load buttons and set button text values
@@ -277,7 +307,7 @@ middleButtons[19].classList.add("gold-button");
 bottomButtons[0].textContent = "π";
 bottomButtons[1].textContent = "x^y";
 bottomButtons[2].textContent = "R2";
-bottomButtons[3].textContent = "R0";
+bottomButtons[3].textContent = "C";
 
 document.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", handleButtonClick);
