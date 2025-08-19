@@ -31,6 +31,7 @@ body {
     text-align: right;
     line-height: 85px;
     padding-right: 15px;
+    padding-left: 15px;
     box-sizing: border-box;
     white-space: nonwrap;
     overflow: hidden;

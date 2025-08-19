@@ -60,11 +60,12 @@ function handleButtonClick(event) {
         console.log("Cleared!");
     } else if (btnText.includes("^")) {
         selectOperator("^");
+    } else if (btnText.includes("%")) {
+        handlePercent();
     } else if (operators.includes(btnText)) {
         selectOperator(btnText);
     } else if (btnText.includes("√")) {
         console.log("Square Root Selected");
-        waitingForSecondValue = false;
         handleSquareRoot();
     } else if (pi.includes(btnText)) {
         appendValue("3.14159265358979");
@@ -136,7 +137,9 @@ function appendValue(input) {
     }
 }
 
-
+function handlePercent() {
+    console.log("test");
+}
 
 function selectOperator(op) {
     if (firstValue === "") {
@@ -161,6 +164,7 @@ function performOperation(a, op, b) {
         case 'x': return a * b;
         case '÷': return b !== 0 ? a / b : NaN;
         case '^': return Math.pow(a, b);
+        case '%': 
         default: return b;
     }
 }
