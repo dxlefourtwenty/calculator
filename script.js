@@ -70,7 +70,7 @@ function handleButtonClick(event) {
         handleSquareRoot();
     } else if (pi.includes(btnText)) {
         appendValue("3.14159265358979");
-    } else if (btnText.includes("C")) {
+    } else if (btnText.includes("ON") || btnText.includes("OFF")) {
         toggleColorfulMode();
     } else {
         console.log("Not implemented yet!");
@@ -237,10 +237,12 @@ function toggleColorfulMode() {
     if (colorfulMode) {
         console.log("Colorful mode: OFF");
         bottomButtons[3].style.removeProperty('background-color');
+        bottomButtons[3].textContent = "OFF";
         colorfulMode = false;
     } else {
         console.log("Colorful mode: ON");
         bottomButtons[3].style.backgroundColor = "rgba(32, 197, 209, 1)";
+        bottomButtons[3].textContent = "ON";
         colorfulMode = true;
     }
 }
@@ -306,8 +308,8 @@ middleButtons[19].classList.add("gold-button");
 
 bottomButtons[0].textContent = "π";
 bottomButtons[1].textContent = "x^y";
-bottomButtons[2].textContent = "R2";
-bottomButtons[3].textContent = "C";
+bottomButtons[2].textContent = "!";
+bottomButtons[3].textContent = "OFF";
 
 document.querySelectorAll("button").forEach(btn => {
     btn.addEventListener("click", handleButtonClick);
