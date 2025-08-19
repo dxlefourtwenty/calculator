@@ -8,7 +8,7 @@ let pi = "π";
 let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
-const digitLimit = 14;
+const digitLimit = 15;
 let colorfulMode = false;
 
 function loadTopButtons(rows, cols) {
@@ -286,7 +286,7 @@ function updateDisplay(value) {
     let numValue = Number(value);
 
     if (!isNaN(numValue) && value.toString().length > digitLimit) {
-        value = numValue.toExponential(10);
+        value = numValue.toExponential(9);
     }
 
     if (colorfulMode) {
