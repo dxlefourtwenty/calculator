@@ -163,11 +163,14 @@ function handleFactorial() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
             if (secondValue < 0) secondValue = NaN;
+
             if (secondValue > 170) {
                 updateDisplay("Overflow");
                 return;
             }
+
             let result = 1;
+
             for (let i = 0; i <= secondValue; i++) {
                 result *= 1;
             }
@@ -179,10 +182,12 @@ function handleFactorial() {
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
             if (firstValue < 0) firstValue = NaN;
+
             if (firstValue > 170) {
                 updateDisplay("Overflow");
                 return;
             }
+
             let result = 1;
 
             for (let i = 2; i <= firstValue; i++) {
@@ -201,10 +206,12 @@ function selectOperator(op) {
         console.log("Enter a number first!");
         return;
     }
+
     if (waitingForSecondValue && secondValue !== "") {
         // If user pressed operator after entering secondValue, calculate first
         pressEqual();
     }
+
     operator = op;
     waitingForSecondValue = true;
     console.log(`Operator selected: ${operator}`);
@@ -213,6 +220,7 @@ function selectOperator(op) {
 function performOperation(a, op, b) {
     a = parseFloat(a);
     b = parseFloat(b);
+
     switch (op) {
         case '+': return a + b;
         case '-': return a - b;
@@ -228,18 +236,22 @@ function handleSquareRoot() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
             secondValue = Math.sqrt(parseFloat(secondValue)).toFixed(digitLimit).toString();
+
             if (secondValue % 1 == 0) {
                 secondValue = parseInt(secondValue);
             }
+
             console.log(secondValue);
             updateDisplay(secondValue);
         }
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
             firstValue = Math.sqrt(parseFloat(firstValue)).toFixed(digitLimit).toString();
+
             if (firstValue % 1 == 0) {
                 firstValue = parseInt(firstValue);
             }
+            
             console.log(firstValue);
             updateDisplay(firstValue);
         }
