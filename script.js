@@ -8,7 +8,7 @@ let pi = "π";
 let firstValue = "";
 let secondValue = "";
 let waitingForSecondValue = false;
-const digitLimit = 15;
+const digitLimit = 14;
 let colorfulMode = false;
 
 function loadTopButtons(rows, cols) {
@@ -63,6 +63,9 @@ function handleButtonClick(event) {
         selectOperator("^");
     } else if (btnText.includes("%")) {
         handlePercent();
+    } else if (btnText.includes("!")) {
+        handleFactorial();
+        console.log("Factorial selected");
     } else if (operators.includes(btnText)) {
         selectOperator(btnText);
     } else if (btnText.includes("√")) {
@@ -150,6 +153,35 @@ function handlePercent() {
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
             firstValue = parseFloat(firstValue) * 0.01;
+            console.log(firstValue);
+            updateDisplay(firstValue);
+        }
+    }
+}
+
+function handleFactorial() {
+    if (waitingForSecondValue) {
+        if (secondValue !== "" && !isNaN(secondValue)) {
+            if (secondValue < 0) secondValue = NaN;
+            let result = 1;
+            for (let i = 0; i <= secondValue; i++) {
+                result *= 1;
+            }
+
+            secondValue = result;
+            console.log(secondValue);
+            updateDisplay(secondValue);
+        }
+    } else {
+        if (firstValue !== "" && !isNaN(firstValue)) {
+            if (firstValue < 0) firstValue = NaN;
+            let result = 1;
+
+            for (let i = 2; i <= firstValue; i++) {
+                result *= i;
+            }
+
+            firstValue = result;
             console.log(firstValue);
             updateDisplay(firstValue);
         }
@@ -251,8 +283,14 @@ function updateDisplay(value) {
     const display = document.getElementById("output");
     display.innerHTML = "";
 
+    let numValue = Number(value);
+
+    if (!isNaN(numValue) && value.toString().length > digitLimit) {
+        value = numValue.toExponential(10);
+    }
+
     if (colorfulMode) {
-        for (let ch of value) {
+        for (let ch of value.toString()) {
             const span = document.createElement("span");
             const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
 

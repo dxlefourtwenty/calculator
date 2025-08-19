@@ -35,7 +35,7 @@ body {
     box-sizing: border-box;
     white-space: nonwrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    /* text-overflow: ellipsis; */
 }
 
 #top-buttons {
