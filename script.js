@@ -138,7 +138,19 @@ function appendValue(input) {
 }
 
 function handlePercent() {
-    console.log("test");
+    if (waitingForSecondValue) {
+        if (secondValue !== "" && !isNaN(secondValue)) {
+            secondValue = parseFloat(secondValue) * 0.01;
+            console.log(secondValue);
+            updateDisplay(secondValue);
+        }
+    } else {
+        if (firstValue !== "" && !isNaN(firstValue)) {
+            firstValue = parseFloat(firstValue) * 0.01;
+            console.log(firstValue);
+            updateDisplay(firstValue);
+        }
+    }
 }
 
 function selectOperator(op) {
