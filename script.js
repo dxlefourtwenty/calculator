@@ -162,7 +162,11 @@ function handlePercent() {
 function handleFactorial() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
-            if (secondValue < 0) secondValue = NaN;
+            if (secondValue < 0) {
+                secondValue = "";
+                updateDisplay("Undefined");
+                return;
+            }
 
             if (secondValue > 170) {
                 updateDisplay("Overflow");
@@ -181,7 +185,11 @@ function handleFactorial() {
         }
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
-            if (firstValue < 0) firstValue = NaN;
+            if (firstValue < 0) {
+                firstValue = "";
+                updateDisplay("Undefined");
+                return;
+            }
 
             if (firstValue > 170) {
                 updateDisplay("Overflow");
@@ -235,6 +243,12 @@ function performOperation(a, op, b) {
 function handleSquareRoot() {
     if (waitingForSecondValue) {
         if (secondValue !== "" && !isNaN(secondValue)) {
+            if (secondValue < 0) {
+                secondValue = "";
+                updateDisplay("Undefined");
+                return;
+            }
+
             secondValue = Math.sqrt(parseFloat(secondValue)).toFixed(digitLimit).toString();
 
             if (secondValue % 1 == 0) {
@@ -246,12 +260,18 @@ function handleSquareRoot() {
         }
     } else {
         if (firstValue !== "" && !isNaN(firstValue)) {
+            if (firstValue < 0) {
+                firstValue = "";
+                updateDisplay("Undefined");
+                return;
+            }
+
             firstValue = Math.sqrt(parseFloat(firstValue)).toFixed(digitLimit).toString();
 
             if (firstValue % 1 == 0) {
                 firstValue = parseInt(firstValue);
             }
-            
+
             console.log(firstValue);
             updateDisplay(firstValue);
         }
@@ -269,6 +289,7 @@ function pressEqual() {
         console.log(`Result: ${result}`);
         firstValue = result.toString();
         operator = null;
+
         secondValue = "";
         waitingForSecondValue = false;
         updateDisplay(firstValue);
