@@ -72,7 +72,7 @@ function handleButtonClick(event) {
         console.log("Square Root Selected");
         handleSquareRoot();
     } else if (pi.includes(btnText)) {
-        appendValue("3.14159265358979");
+        appendValue("3.1415926535897");
     } else if (btnText.includes("ON") || btnText.includes("OFF")) {
         toggleColorfulMode();
     } else {
