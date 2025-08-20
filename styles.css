@@ -25,17 +25,17 @@ body {
     height: 85px;
     margin: 25px;
     margin-bottom: 0px;
-    border: 1px solid rgb(0, 0, 0);
+    border: 1px solid rgba(0, 0, 0);
     font-size: 65px;
     font-weight: 900;
     text-align: right;
+    text-shadow: 2px 2px 4px rgb(0, 0, 0, 0.5);
     line-height: 85px;
     padding-right: 15px;
     padding-left: 18px;
     box-sizing: border-box;
     white-space: nonwrap;
     overflow: hidden;
-    /* text-overflow: ellipsis; */
 }
 
 #top-buttons {
