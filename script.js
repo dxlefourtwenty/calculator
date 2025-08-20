@@ -175,7 +175,7 @@ function handleFactorial() {
 
             let result = 1;
 
-            for (let i = 0; i <= secondValue; i++) {
+            for (let i = 2; i <= secondValue; i++) {
                 result *= 1;
             }
 
