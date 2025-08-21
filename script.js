@@ -307,12 +307,25 @@ function clearOutput() {
 }
 
 function toggleColorfulMode() {
+    const display = document.getElementById("output");
+    const textContent = display.textContent;
+    display.innerHTML = "";
+
     if (colorfulMode) {
         console.log("Colorful mode: OFF");
         bottomButtons[3].style.removeProperty('background-color');
         bottomButtons[3].textContent = "OFF";
+        display.textContent = textContent;
         colorfulMode = false;
     } else {
+        for (let ch of textContent) {
+            const span = document.createElement("span");
+            span.style.color = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+            span.textContent = ch;
+            display.appendChild(span);
+        }
+
         console.log("Colorful mode: ON");
         bottomButtons[3].style.backgroundColor = "rgba(32, 197, 209, 1)";
         bottomButtons[3].textContent = "ON";
