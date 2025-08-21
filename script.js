@@ -331,18 +331,26 @@ function updateDisplay(value) {
     }
 
     if (colorfulMode) {
-        for (let ch of value.toString()) {
-            const span = document.createElement("span");
-            const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-
-            span.style.color = randomColor;
-            span.textContent = ch;
-
-            display.appendChild(span);
-        }
+        updateColors(value);
     } else {
         display.textContent = value;
     }
+}
+
+function updateColors(value) {
+    const display = document.getElementById("output");
+    display.innerHTML = "";
+
+    for (let ch of value.toString()) {
+        const span = document.createElement("span");
+        const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+        span.style.color = randomColor;
+        span.textContent = ch;
+
+        display.appendChild(span);
+    }
+
 }
 
 // Load buttons and set button text values
