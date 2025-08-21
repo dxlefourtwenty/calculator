@@ -331,13 +331,13 @@ function updateDisplay(value) {
     }
 
     if (colorfulMode) {
-        updateColors(value);
+        updateDisplayHelper(value);
     } else {
         display.textContent = value;
     }
 }
 
-function updateColors(value) {
+function updateDisplayHelper(value) {
     const display = document.getElementById("output");
     display.innerHTML = "";
 
